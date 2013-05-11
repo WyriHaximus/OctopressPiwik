@@ -1,6 +1,6 @@
 # OctopressPiwik
 
-This allows you to make use [Piwik](http://piwik.org/) anaylitics in your octopress powered site.  
+This allows you to make use [Piwik](http://piwik.org/) analytics in your octopress powered site.  
 
 ## Installing
 
