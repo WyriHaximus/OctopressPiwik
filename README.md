@@ -1,30 +1,110 @@
-# OctopressPiwik
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/WyriHaximus/octopresspiwik/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+# puppet-wifi
 
-This allows you to make use [Piwik](http://piwik.org/) analytics in your octopress powered site.  
+A Puppet module to configure and manage Wi-Fi access points on Linux systems.
 
-## Installing
+## Table of Contents
 
-* Drop `piwik.html` into your themes' `source/_includes/custom` directory.
-  * ie: `.themes/mytheme/source/_includes/custom/`
-* add your piwik hostname and site id to your `_config.yml`
-* include `piwik.html` at the bottom of your themes' `after_footer.html`
-  * `.themes/mytheme/source/_includes/custom/after_footer.html`
+- [Overview](#overview)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Configuration](#basic-configuration)
+  - [Advanced Configuration](#advanced-configuration)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Links
+## Overview
 
-[List](https://github.com/imathis/octopress/wiki/3rd-party-plugins) of other third-party octopress plugins. 
+The `puppet-wifi` module allows you to automate the setup and management of Wi-Fi access points using Puppet. It supports various Linux distributions and provides a declarative approach to network configuration.
 
-## Plugin License
+## Features
 
-(The MIT License)
+- **Access Point Configuration**: Define SSID, security settings, and IP addressing.
+- **Multiple Interface Support**: Manage multiple Wi-Fi interfaces simultaneously.
+- **Security Protocols**: Configure WPA2, WPA3, and open networks.
+- **Static and Dynamic IP Addressing**: Support for both static IP and DHCP configurations.
+- **Service Management**: Ensure that the necessary services are enabled and started.
+- **Cross-Platform Compatibility**: Works across various Linux distributions.
 
-Copyright © 2013 Cees-Jan Kiewiet
+## Requirements
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ‘Software’), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+- Puppet 6.0 or higher
+- Linux-based operating system with `hostapd` and `dnsmasq` installed
+- Root privileges for network configuration
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+## Installation
 
-THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+To install the module, use the following command:
 
+```bash
+puppet module install opus-codium-wifi
+````
+
+## Usage
+
+### Basic Configuration
+
+To set up a simple Wi-Fi access point:
+
+```puppet
+class { 'wifi':
+  ssid            => 'MyNetwork',
+  security        => 'wpa2',
+  passphrase      => 'securepassword',
+  interface       => 'wlan0',
+  ip_address      => '192.168.1.1',
+  netmask         => '255.255.255.0',
+  gateway         => '192.168.1.254',
+}
+```
+
+### Advanced Configuration
+
+For more complex setups, such as multiple interfaces or advanced security settings:
+
+```puppet
+class { 'wifi':
+  interfaces => [
+    {
+      name        => 'wlan0',
+      ssid        => 'Network1',
+      security    => 'wpa3',
+      passphrase  => 'password1',
+      ip_address  => '192.168.1.1',
+      netmask     => '255.255.255.0',
+      gateway     => '192.168.1.254',
+    },
+    {
+      name        => 'wlan1',
+      ssid        => 'Network2',
+      security    => 'wpa2',
+      passphrase  => 'password2',
+      ip_address  => '192.168.2.1',
+      netmask     => '255.255.255.0',
+      gateway     => '192.168.2.254',
+    },
+  ],
+}
+```
+
+## Testing
+
+To test the module, you can use the included RSpec tests:
+
+```bash
+bundle install
+bundle exec rake spec
+```
+
+Ensure that you have the necessary dependencies installed before running the tests.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository, create a new branch, and submit a pull request with your changes. Ensure that your code adheres to the existing style and includes appropriate tests.
+
+## License
+
+This module is licensed under the Apache-2.0 License. See the [LICENSE](LICENSE) file for more details.
