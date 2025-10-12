@@ -9,6 +9,9 @@ This allows you to make use [Piwik](http://piwik.org/) analytics in your octopre
 * Drop `piwik.html` into your themes' `source/_includes/custom` directory.
   * ie: `.themes/mytheme/source/_includes/custom/`
 * add your piwik hostname and site id to your `_config.yml`
+* **Optional settings:**
+  - `piwik_protocol`: specify "https" or "http" (default is https)
+  - `env`: set to "development" to disable tracking locally, or "production" to enable tracking
 * include `piwik.html` at the bottom of your themes' `after_footer.html`
   * `.themes/mytheme/source/_includes/custom/after_footer.html`
 
@@ -28,3 +31,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+---
+
+## **New Features**
+- Added `piwik_protocol` to select HTTP or HTTPS tracking
+- Added `env` to disable tracking during development (localhost)
+- Ensures cleaner analytics data and safer local testing
